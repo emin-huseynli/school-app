@@ -6,11 +6,12 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import { ToastContainer } from 'react-toastify'
+import { AuthProvider } from './context/AuthProvider'
 
 function App() {
 
   return (
-    <div>
+    <AuthProvider>
       <Navbar />
       <ToastContainer />
       <div>
@@ -21,8 +22,9 @@ function App() {
           <Route path='*' element={<Navigate to="/" />} />
         </Routes>
       </div>
-      <Register />
-    </div>
+      <Login />
+    </AuthProvider>
+      
   )
 }
 
