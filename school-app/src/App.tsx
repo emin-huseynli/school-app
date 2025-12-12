@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import { ToastContainer } from 'react-toastify'
 import { AuthProvider } from './context/AuthProvider'
+import { PrivateRoute } from './components/ProtectedRoute'
 
 function App() {
 
@@ -16,15 +17,14 @@ function App() {
       <ToastContainer />
       <div>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='*' element={<Navigate to="/" />} />
         </Routes>
       </div>
-      <Login />
     </AuthProvider>
-      
+
   )
 }
 

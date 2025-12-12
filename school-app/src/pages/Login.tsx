@@ -5,16 +5,14 @@ import { toast } from 'react-toastify';
 import type { ILogin } from '../types/types';
 import { AuthContext } from '../context/AuthContext';
 import { loginUser } from '../services/authService';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const auth = useContext(AuthContext);
-  if (!auth) {
-    throw new Error("AuthContext must be used within an AuthProvider");
-  }
-  const { login } = auth;
-  
+  const { login } = useContext(AuthContext)!;
+
   const [loading, setLoading] = useState(false)
 
+  const Navigate = useNavigate()
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -38,7 +36,7 @@ const Login = () => {
       login(user)
 
       toast.success("Login successful!");
-
+      Navigate("/")
     } catch (error) {
 
       console.log(error);

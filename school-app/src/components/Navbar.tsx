@@ -1,15 +1,50 @@
-import { Link } from "react-router-dom"
-const Navbar = () => {
-    return (
-        <nav className="bg-blue-500 p-4 text-white flex justify-between">
-            <div className="font-bold text-xl">School app</div>
-            <div className="space-x-4">
-                <Link to="/">Home</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
-            </div>
-        </nav>
-    )
-}
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
-export default Navbar
+const Navbar = () => {
+  const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext)!;
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
+  return (
+    <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
+
+      <Link to="/" className="font-bold text-xl">
+        School App
+      </Link>
+
+      <div className="flex items-center gap-4">
+
+        {user ? (
+          <>
+            <span className="font-semibold">{user.name}</span>
+
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 px-3 py-1 rounded-md hover:bg-red-600"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="hover:underline">
+              Login
+            </Link>
+            <Link to="/register" className="hover:underline">
+              Register
+            </Link>
+          </>
+        )}
+
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
